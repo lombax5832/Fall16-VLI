@@ -22,7 +22,7 @@ int VLI::getSign() {
 }
 
 VLI VLI::getAbsValue() {
-
+    
 }
 
 void VLI::setSign() {
