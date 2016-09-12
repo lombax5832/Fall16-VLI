@@ -9,10 +9,20 @@ VLI::VLI(){
 
 VLI::VLI(int input) {
 
-}
+    
+    }
 
-VLI::VLI(const char input[]) {
-
+VLI::VLI(const char input[]) { //NOT SURE IF WORKS YET. HAVEN"T TESTED IT
+    int size;
+    int num1;
+    
+    size = strlen(input);
+    
+    for( int x = 0; x< size; x++)
+    {
+        num1 = input[x] - '0';
+    }
+    
 }
 // END Constructors
 
