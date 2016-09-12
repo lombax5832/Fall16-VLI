@@ -2,6 +2,7 @@
 using namespace std;
 #include<iostream>
 
+// Constants
 const int VLI_SIZE = 100;
 
 class VLI {
@@ -26,10 +27,12 @@ public:
 	bool isLT(VLI, VLI);
 
 	// Misc
+	void clearVLI();
 	void toCstring(char[]);
 	void print();
+	void setVLIFromString(const char[]);
 private:
 	// Data Storage
-	char sign;
+	bool isNegative;
 	char num[VLI_SIZE];
 };
