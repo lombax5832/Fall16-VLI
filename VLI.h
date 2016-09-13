@@ -4,6 +4,8 @@ using namespace std;
 
 // Constants
 const int VLI_SIZE = 100;
+//const char ASCII_0 = '0';
+//const char ASCII_9 = '9';
 
 class VLI {
 public:
@@ -13,13 +15,14 @@ public:
 	VLI(const char[]);
 
 	// Getters and Setters
-	int getSign();
-	VLI getAbsValue();
-	void setSign();
+	int getSign() const;
+	VLI getAbsValue() const;
+	int getVLILength() const;
+	void setSign(int);
 
 	// Arithmetic
-	VLI addVLI(VLI, VLI);
-	VLI subVLI(VLI, VLI);
+	bool addVLI(VLI, VLI);
+	bool subVLI(VLI, VLI);
 
 	// Predicate
 	bool isEQ(VLI, VLI);
