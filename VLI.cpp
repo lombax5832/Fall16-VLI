@@ -8,7 +8,7 @@ using namespace std;
 int firstNonXIndex(const char[], char);
 
 // START Constructors
-VLI::VLI(){
+VLI::VLI() {
 	char inputString[] = { 0 };
 	setVLIFromString(inputString);
 }
@@ -39,7 +39,7 @@ VLI VLI::getAbsValue() const {
 int VLI::getVLILength() const {
 	for (int i = 0; i < VLI_SIZE; i++) {
 		if (num[i] != 0) {
-			return VLI_SIZE-i;
+			return VLI_SIZE - i;
 		}
 	}
 	return 1;
@@ -83,32 +83,21 @@ bool VLI::subVLI(VLI vli1, VLI vli2) {
 
 // START Predicate
 bool VLI::isEQ(VLI vli1, VLI vli2) {
-    if( vli1.getVLILength() > vli2.getVLILength()) {
-        return false;
-    }
-    else if ( vli1.getVLILength() < vli2.getVLILength()) {
-    
-        return false;
-    }
-    else if(vli1.getVLILength() == vli2.getVLILength())
-    {
-        for( int i = 0; i< vli1.getVLILength(); i++) {
-            
-            if( vli1[i] > vli2[i]){
-        
-            return false;
-        }
-            else if( vli1[i] < vli2[i]) {
-                return false;
-            }
-            else {
-                return true;
-            }
-            
-        }
-    }
-    
-    //return NULL;
+	if (vli1.getVLILength() == vli2.getVLILength()) {
+		for (int i = 0; i < vli1.getVLILength(); i++) {
+
+			if (vli1.num[i] > vli2.num[i]) {
+				return false;
+			}
+			else if (vli1.num[i] < vli2.num[i]) {
+				return false;
+			}
+			else {
+				return true;
+			}
+
+		}
+	}
 }
 
 bool VLI::isGT(VLI vli1, VLI vli2) {
@@ -129,7 +118,7 @@ void VLI::clearVLI() {
 }
 
 void VLI::toCstring(char output[]) {
-	for (int i = VLI_SIZE-getVLILength(), j = 0; i < VLI_SIZE; i++, j++) {
+	for (int i = VLI_SIZE - getVLILength(), j = 0; i < VLI_SIZE; i++, j++) {
 		if (j == 0 && isNegative) {
 			output[j] = '-';
 			j++;
@@ -170,7 +159,8 @@ void VLI::setVLIFromString(const char input[]) {
 	{
 		if (input[size - inputIndex]<'0' || input[size - inputIndex]>'9') {
 			outputIndex--;
-		}else if (input[size - inputIndex] != '-') {
+		}
+		else if (input[size - inputIndex] != '-') {
 			num[VLI_SIZE - outputIndex - 1] = input[size - inputIndex] - '0';
 		}
 	}
@@ -183,7 +173,7 @@ int firstNonXIndex(const char input[], char X) {
 			return i;
 		}
 	}
-	return size-1;
+	return size - 1;
 }
 
 
