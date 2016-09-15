@@ -83,7 +83,32 @@ bool VLI::subVLI(VLI vli1, VLI vli2) {
 
 // START Predicate
 bool VLI::isEQ(VLI vli1, VLI vli2) {
-	return NULL;
+    if( vli1.getVLILength() > vli2.getVLILength()) {
+        return false;
+    }
+    else if ( vli1.getVLILength() < vli2.getVLILength()) {
+    
+        return false;
+    }
+    else if(vli1.getVLILength() == vli2.getVLILength())
+    {
+        for( int i = 0; i< vli1.getVLILength(); i++) {
+            
+            if( vli1[i] > vli2[i]){
+        
+            return false;
+        }
+            else if( vli1[i] < vli2[i]) {
+                return false;
+            }
+            else {
+                return true;
+            }
+            
+        }
+    }
+    
+    //return NULL;
 }
 
 bool VLI::isGT(VLI vli1, VLI vli2) {
