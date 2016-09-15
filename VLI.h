@@ -16,24 +16,25 @@ public:
 
 	// Getters and Setters
 	int getSign() const;
-	VLI getAbsValue() const;
+	void getAbsValue(const VLI);
 	int getVLILength() const;
 	void setSign(int);
 
 	// Arithmetic
-	bool addVLI(VLI, VLI);
+	bool addVLI(const VLI, const VLI);
 	bool subVLI(VLI, VLI);
 
 	// Predicate
-	bool isEQ(VLI, VLI);
-	bool isGT(VLI, VLI);
-	bool isLT(VLI, VLI);
+	bool isEQ(VLI) const;
+	bool isGT(VLI) const;
+	bool isLT(VLI) const;
 
 	// Misc
 	void clearVLI();
-	void toCstring(char[]);
-	void print();
+	void toCstring(char[]) const;
+	void print() const;
 	void setVLIFromString(const char[]);
+	void copyVLI(const VLI);
 private:
 	// Data Storage
 	bool isNegative;

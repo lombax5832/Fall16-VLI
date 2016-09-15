@@ -12,13 +12,18 @@ int main() {
 	}*/
 	cout << "Enter a string: ";
 	cin >> testArray2;
-	cout << "Enter another string: ";
-	cin >> testArray3;
+	//cout << "Enter another string: ";
+	//cin >> testArray3;
 	VLI vli1(testArray2);
-	VLI vli2(testArray3);
-	VLI vli3;
+	//VLI vli2(testArray3);
 
-	vli3.addVLI(vli1, vli2);
+	//cout << "VLI1";
+	//vli1.isEQ(vli2)?cout<<"==":cout<<"!=";
+	//cout << "VLI2" << endl;
+
+
+	VLI vli3;
+	vli3.getAbsValue(vli1);
 	vli3.print();
 	return 0;
 }

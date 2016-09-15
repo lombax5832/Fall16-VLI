@@ -5,7 +5,7 @@ using namespace std;
 #include"convert.h";
 
 // Function Declarations
-int firstNonXIndex(const char[], char);
+int firstNonXIndex(const char[], int, char);
 
 // START Constructors
 VLI::VLI() {
@@ -32,8 +32,9 @@ int VLI::getSign() const {
 	return 1;
 }
 
-VLI VLI::getAbsValue() const {
-	return NULL;
+void VLI::getAbsValue(const VLI input){
+	copyVLI(input);
+	setSign(1); // Always positive
 }
 
 int VLI::getVLILength() const {
@@ -56,7 +57,7 @@ void VLI::setSign(int inputSign) {
 // END Getters and Setters
 
 // START Arithmetic
-bool VLI::addVLI(VLI vli1, VLI vli2) {
+bool VLI::addVLI(const VLI vli1, const VLI vli2) {
 	// tempCarry10 is the amount to carry to the next vli element
 	int tempCarry10 = 0;
 	// tempAdd is how much we add to the current vli element
@@ -82,29 +83,28 @@ bool VLI::subVLI(VLI vli1, VLI vli2) {
 // END Arithmetic
 
 // START Predicate
-bool VLI::isEQ(VLI vli1, VLI vli2) {
-	if (vli1.getVLILength() == vli2.getVLILength()) {
-		for (int i = 0; i < vli1.getVLILength(); i++) {
-
-			if (vli1.num[i] > vli2.num[i]) {
-				return false;
-			}
-			else if (vli1.num[i] < vli2.num[i]) {
-				return false;
+bool VLI::isEQ(VLI vli2) const{
+	// Only run loop if both VLIs are the same length and sign
+	if ((getVLILength() == vli2.getVLILength())&&(getSign()==vli2.getSign())) {
+		int vliLength = getVLILength();// Amount of digits in the VLI
+		for (int i = VLI_SIZE-vliLength; i < vliLength; i++) {
+			if (num[i] == vli2.num[i]) { // We only care about when these are different
+				continue;
 			}
 			else {
-				return true;
+				return false;
 			}
-
 		}
+		return true;
 	}
+	return false;
 }
 
-bool VLI::isGT(VLI vli1, VLI vli2) {
+bool VLI::isGT(VLI vli2) const{
 	return NULL;
 }
 
-bool VLI::isLT(VLI vli1, VLI vli2) {
+bool VLI::isLT(VLI vli2) const{
 	return NULL;
 }
 // END Predicate
@@ -117,7 +117,7 @@ void VLI::clearVLI() {
 	}
 }
 
-void VLI::toCstring(char output[]) {
+void VLI::toCstring(char output[]) const{
 	for (int i = VLI_SIZE - getVLILength(), j = 0; i < VLI_SIZE; i++, j++) {
 		if (j == 0 && isNegative) {
 			output[j] = '-';
@@ -129,7 +129,7 @@ void VLI::toCstring(char output[]) {
 	}
 }
 
-void VLI::print() {
+void VLI::print() const{
 	bool firstNonZero = false;//Tracks whether or not we hit the first non-zero
 	if (isNegative) {
 		cout << '-';
@@ -146,13 +146,22 @@ void VLI::print() {
 }
 
 void VLI::setVLIFromString(const char input[]) {
-	int size;
-
 	clearVLI();
 
-	size = strlen(input) - 1;
-	if (input[firstNonXIndex(input, '0')] == '-') {
-		isNegative = true;
+	int size = strlen(input) - 1;
+
+	int firstValidChar = firstNonXIndex(input, 0, '0');
+	//Sets the sign of the VLI to the input's sign
+	if (input[firstValidChar] == '-') {
+		if ((firstNonXIndex(input, firstValidChar + 1, '0') == size)&&(input[size]=='0')) {
+			setSign(1);
+		}
+		else {
+			setSign(-1);
+		}
+	}
+	else {
+		setSign(1);
 	}
 
 	for (int inputIndex = 0, outputIndex = 0; inputIndex <= size; inputIndex++, outputIndex++)
@@ -166,15 +175,20 @@ void VLI::setVLIFromString(const char input[]) {
 	}
 }
 
-int firstNonXIndex(const char input[], char X) {
+void VLI::copyVLI(const VLI input) {
+	setSign(input.getSign()); // Set signs to be equal
+	for (int i = firstNonXIndex(input.num, 0, 0); i < VLI_SIZE; i++) {
+		num[i] = input.num[i]; // Set every value in array to be equal
+	}
+}
+
+int firstNonXIndex(const char input[], int start, char X) {
 	int size = strlen(input);//Length of string
-	for (int i = 0; i < size; i++) {
+	for (int i = start; i < size; i++) {
 		if (input[i] != X) {//Return the first index where input[i]!='0'
 			return i;
 		}
 	}
 	return size - 1;
 }
-
-
 // END Misc
