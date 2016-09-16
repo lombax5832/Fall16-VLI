@@ -1,6 +1,4 @@
 #pragma once
-using namespace std;
-#include<iostream>
 
 // Constants
 const int VLI_SIZE = 100;

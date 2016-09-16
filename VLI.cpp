@@ -1,6 +1,8 @@
 using namespace std;
 #include<iostream>
 #include<algorithm>
+#include<string>
+
 #include"VLI.h";
 #include"convert.h";
 
@@ -14,6 +16,16 @@ VLI::VLI() {
 }
 
 VLI::VLI(int input) {
+	int temp = input; // Holds modified input while adding to VLI
+	int remainder = 0;
+	int i = 0; // Iterates through the VLI
+	while (temp != 0) {
+		remainder = temp % 10;
+		num[VLI_SIZE - i] = remainder;
+		temp /= 10;
+		i++;
+	}
+
 	char input2str[MAX_INT_STRING_LENGTH] = "";
 	int2str(input, input2str);
 	setVLIFromString(input2str);
