@@ -96,7 +96,7 @@ public:
 						vli1: VLI object to subtract from
 						vli2: VLI object to subtract
 	*/
-	void subVLI(VLI, VLI);
+	void subVLI(const VLI vli1, const VLI vli2);
 
 // Predicate
 
@@ -110,7 +110,7 @@ public:
 		Returns:		True if calling vli object is equal to passed vli object
 						False otherwise
 	*/
-	bool isEQ(VLI vli) const;
+	bool isEQ(const VLI vli) const;
 
 	/*
 		Description:	Returns if the value of the calling vli object 
@@ -122,7 +122,7 @@ public:
 		Returns:		True if calling vli object is greater than passed vli object
 						False otherwise
 	*/
-	bool isGT(VLI vli) const;
+	bool isGT(const VLI vli) const;
 
 	/*
 		Description:	Returns if the value of the calling vli object 
@@ -134,13 +134,35 @@ public:
 		Returns:		True if calling vli object is less than passed vli object
 						False otherwise
 	*/
-	bool isLT(VLI vli) const;
+	bool isLT(const VLI vli) const;
 
-	// Misc
+// Misc
+
+	/*
+		Description:	Sets every digit in VLI equal to 0 and sign to positive
+		Pre:			Called as member of VLI object
+		Post:			Calling VLI object is initialized/cleared
+	*/
 	void clearVLI();
-	void toCstring(char[]) const;
+
+	/*
+		Description:	Outputs a cstring with value equal to VLI object
+		Pre:			Called as member of VLI object
+						Passed char array is large enough to hold value of VLI
+		Post:			Calling VLI object is converted into a cstring
+		Parameters:		
+						output: cstring to output value of VLI object to
+	*/
+	void toCstring(char output[]) const;
+
+	/*
+		Description:	Prints the value of the calling VLI object
+		Pre:			Called as member of VLI object
+		Post:			VLI object will be printed out to the console
+	*/
 	void print() const;
-	void setVLIFromString(const char[]);
+
+	void setVLIFromString(const char input[]);
 	void copyVLI(const VLI);
 private:
 	// Data Storage

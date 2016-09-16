@@ -90,13 +90,13 @@ void VLI::addVLI(const VLI vli1, const VLI vli2) {
 	}
 }
 
-void VLI::subVLI(VLI vli1, VLI vli2) {
+void VLI::subVLI(const VLI vli1, const VLI vli2) {
 
 }
 // END Arithmetic
 
 // START Predicate
-bool VLI::isEQ(VLI vli2) const{
+bool VLI::isEQ(const VLI vli2) const{
 	// Only run loop if both VLIs are the same length and sign
 	if ((getVLILength() == vli2.getVLILength())&&(getSign()==vli2.getSign())) {
 		int vliLength = getVLILength();// Amount of digits in the VLI
@@ -113,7 +113,7 @@ bool VLI::isEQ(VLI vli2) const{
 	return false;
 }
 
-bool VLI::isGT(VLI vli2) const {
+bool VLI::isGT(const VLI vli2) const {
 	if (!isNegative && vli2.isNegative) {
 		return true;
 	}
@@ -131,7 +131,7 @@ bool VLI::isGT(VLI vli2) const {
 	}
 }
 
-bool VLI::isLT(VLI vli2) const{
+bool VLI::isLT(const VLI vli2) const{
 	return(!isGT(vli2)&&!isEQ(vli2));
 }
 // END Predicate
