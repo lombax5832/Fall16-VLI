@@ -113,7 +113,20 @@ bool VLI::isEQ(VLI vli2) const{
 }
 
 bool VLI::isGT(VLI vli2) const{
-	return NULL;
+	
+	if (getSign() == vli2.getSign()) {
+		int vlilength = getVLILength();// Amount of digits in the VLI
+		for (int i = VLI_SIZE - vlilength; i < vlilength; i++) {
+			if (num[i] > vli2.num[i]) {
+				return true;
+			}
+		}
+		
+		if (isNegative == 0 && vli2.isNegative) {
+			return true;
+		}
+	}
+	return false;
 }
 
 bool VLI::isLT(VLI vli2) const{
