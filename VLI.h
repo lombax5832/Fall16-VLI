@@ -98,10 +98,43 @@ public:
 	*/
 	void subVLI(VLI, VLI);
 
-	// Predicate
-	bool isEQ(VLI) const;
-	bool isGT(VLI) const;
-	bool isLT(VLI) const;
+// Predicate
+
+	/*
+		Description:	Returns if the value of the calling vli object 
+							is equal to the passed vli object
+		Pre:			Called as member of VLI object
+		Post:			Calling VLI object is compared to passed VLI object
+		Parameters:		
+						vli: VLI object to compare to
+		Returns:		True if calling vli object is equal to passed vli object
+						False otherwise
+	*/
+	bool isEQ(VLI vli) const;
+
+	/*
+		Description:	Returns if the value of the calling vli object 
+							is greater than the passed vli object
+		Pre:			Called as member of VLI object
+		Post:			Calling VLI object is compared to passed VLI object
+		Parameters:		
+						vli: VLI object to compare to
+		Returns:		True if calling vli object is greater than passed vli object
+						False otherwise
+	*/
+	bool isGT(VLI vli) const;
+
+	/*
+		Description:	Returns if the value of the calling vli object 
+							is less than the passed vli object
+		Pre:			Called as member of VLI object
+		Post:			Calling VLI object is compared to passed VLI object
+		Parameters:		
+						vli: VLI object to compare to
+		Returns:		True if calling vli object is less than passed vli object
+						False otherwise
+	*/
+	bool isLT(VLI vli) const;
 
 	// Misc
 	void clearVLI();
