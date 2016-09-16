@@ -71,7 +71,7 @@ void VLI::setSign(int inputSign) {
 // END Getters and Setters
 
 // START Arithmetic
-bool VLI::addVLI(const VLI vli1, const VLI vli2) {
+void VLI::addVLI(const VLI vli1, const VLI vli2) {
 	// tempCarry10 is the amount to carry to the next vli element
 	int tempCarry10 = 0;
 	// tempAdd is how much we add to the current vli element
@@ -84,15 +84,14 @@ bool VLI::addVLI(const VLI vli1, const VLI vli2) {
 		num[i] = tempAdd % 10;
 		tempCarry10 = tempAdd / 10;
 		tempAdd = 0;
-		if (i == 0 && tempCarry10 != 0)
-			return false;
-	}
+		if (i == 0 && tempCarry10 != 0) {
 
-	return true;
+		}
+	}
 }
 
-bool VLI::subVLI(VLI vli1, VLI vli2) {
-	return false;
+void VLI::subVLI(VLI vli1, VLI vli2) {
+
 }
 // END Arithmetic
 

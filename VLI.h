@@ -76,9 +76,27 @@ public:
 	*/
 	void setSign(int input);
 
-	// Arithmetic
-	bool addVLI(const VLI, const VLI);
-	bool subVLI(VLI, VLI);
+// Arithmetic
+
+	/*
+		Description:	Sets calling VLI equal to vli1 + vli2
+		Pre:			Called as member of VLI object
+		Post:			Calling VLI object is set to be equal to vli1 + vli2
+		Parameters:		
+						vli1: First VLI object to add
+						vli2: Second VLI object to add
+	*/
+	void addVLI(const VLI vli1, const VLI vli2);
+
+	/*
+		Description:	Sets calling VLI equal to vli1 - vli2
+		Pre:			Called as member of VLI object
+		Post:			Calling VLI object is set to be equal to vli1 - vli2
+		Parameters:		
+						vli1: VLI object to subtract from
+						vli2: VLI object to subtract
+	*/
+	void subVLI(VLI, VLI);
 
 	// Predicate
 	bool isEQ(VLI) const;
