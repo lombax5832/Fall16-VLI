@@ -4,7 +4,6 @@ using namespace std;
 #include<string>
 
 #include"VLI.h";
-#include"convert.h";
 
 // Function Declarations
 int firstNonXIndex(const char[], int, char);
@@ -16,19 +15,22 @@ VLI::VLI() {
 }
 
 VLI::VLI(int input) {
-	int temp = input; // Holds modified input while adding to VLI
+	clearVLI();
+	int temp = 0; // Holds modified input while adding to VLI
 	int remainder = 0;
-	int i = 0; // Iterates through the VLI
+
+	(input < 0) ? setSign(-1) : setSign(1); // Set sign of VLI to sign of input
+
+	temp = abs(input); // Set temp to be the abs val of the input
+
+	int i = 1; // Iterates through the VLI
+
 	while (temp != 0) {
-		remainder = temp % 10;
+		remainder = temp % 10; // Remainder is the last digit of temp
 		num[VLI_SIZE - i] = remainder;
-		temp /= 10;
+		temp /= 10; // Removes last digit of temp
 		i++;
 	}
-
-	char input2str[MAX_INT_STRING_LENGTH] = "";
-	int2str(input, input2str);
-	setVLIFromString(input2str);
 }
 
 VLI::VLI(const char input[]) {
