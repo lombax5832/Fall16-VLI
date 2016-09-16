@@ -1,16 +1,40 @@
 #pragma once
+/**
+*	Authors:		Alexei Snytkine
+*					Alexandros Psitos
+*	Description:	Class that manages integer numbers up to 100 digits in size
+*	Date Created:	9/10/16
+*	Date Modified:	9/16/16
+*/
 
 // Constants
 const int VLI_SIZE = 100;
-//const char ASCII_0 = '0';
-//const char ASCII_9 = '9';
 
 class VLI {
 public:
 	// Constructors
+
+/*
+	Description:	Default constructor for VLI
+	Pre:
+	Post:			Initializes a new VLI with value of 0
+*/
 	VLI();
-	VLI(int);
-	VLI(const char[]);
+
+/*
+	Description:	Convert from int constructor for VLI
+	Pre:			Valid, initialized integer as input
+	Post:			Initializes a new VLI with value of input
+*/
+	VLI(int input);
+
+/*
+	Description:	Convert from cstring constructor for VLI
+	Pre:			String of ascii characters of numbers ('0'-'9')
+					with optional leading negative sign ('-')
+	Post:			Initializes a new VLI with value of input
+*/
+	VLI(const char input[]);
 
 	// Getters and Setters
 	int getSign() const;
