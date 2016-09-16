@@ -21,8 +21,12 @@ int main() {
 	//vli1.isEQ(vli2)?cout<<"==":cout<<"!=";
 	//cout << "VLI2" << endl;
 
+	//cout << "VLI1";
+	//vli1.isGT(vli2)?cout<<">":cout<<"!>";
+	//cout << "VLI2" << endl;
+
 	cout << "VLI1";
-	vli1.isGT(vli2)?cout<<">":cout<<"!>";
+	vli1.isLT(vli2) ? cout << "!<" : cout << "<";
 	cout << "VLI2" << endl;
 	
 	VLI vli3;

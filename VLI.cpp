@@ -114,25 +114,26 @@ bool VLI::isEQ(VLI vli2) const{
 	return false;
 }
 
-bool VLI::isGT(VLI vli2) const{
-	
-	if (getSign() == vli2.getSign()) {
-		int vlilength = getVLILength();// Amount of digits in the VLI
-		for (int i = VLI_SIZE - vlilength; i < vlilength; i++) {
-			if (num[i] > vli2.num[i]) {
+bool VLI::isGT(VLI vli2) const {
+	if (!isNegative && vli2.isNegative) {
+		return true;
+	}
+	else if (isNegative && !vli2.isNegative) {
+		return false;
+	}
+	else if (isNegative == vli2.isNegative) {
+		int vlilength = max(getVLILength(), vli2.getVLILength());// Amount of digits in the VLI
+		for (int i = VLI_SIZE - vlilength; i < VLI_SIZE; i++) {
+			if ((getSign()*num[i]) > (vli2.getSign()*vli2.num[i])) {
 				return true;
 			}
 		}
-		
-		if (isNegative == 0 && vli2.isNegative) {
-			return true;
-		}
+		return false;
 	}
-	return false;
 }
 
 bool VLI::isLT(VLI vli2) const{
-	return NULL;
+	return(!isGT(vli2)&&!isEQ(vli2));
 }
 // END Predicate
 
