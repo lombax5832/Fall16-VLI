@@ -15,21 +15,15 @@ VLI::VLI() {
 }
 
 VLI::VLI(int input) {
+	clearVLI();
 	int temp = 0; // Holds modified input while adding to VLI
 	int remainder = 0;
 
-	if (input < 0) { 
-		setSign(-1);
-	}
-	else {
-		setSign(1);
-	}
-
-	input < 0 ? setSign(-1) : setSign(1); // Set sign of VLI to sign of input
+	(input < 0) ? setSign(-1) : setSign(1); // Set sign of VLI to sign of input
 
 	temp = abs(input); // Set temp to be the abs val of the input
 
-	int i = 0; // Iterates through the VLI
+	int i = 1; // Iterates through the VLI
 
 	while (temp != 0) {
 		remainder = temp % 10; // Remainder is the last digit of temp
