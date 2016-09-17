@@ -162,10 +162,42 @@ public:
 	*/
 	void print() const;
 
+	/*
+		Description:	Sets value of VLI from passed input cstring
+		Pre:			Called as member of VLI object
+						Passed cstring has an optional leading negative
+							and must have a terminating null character
+		Post:			VLI object will be set equal to value of input string
+		Parameters:		
+						input: cstring to set value of VLI object to
+	*/
 	void setVLIFromString(const char input[]);
-	void copyVLI(const VLI);
+
+	/*
+		Description:	Sets value of VLI from passed input cstring
+		Pre:			Called as member of VLI object
+						Passed cstring has an optional leading negative
+							and must have a terminating null character
+		Post:			VLI object will be set equal to value of input string
+		Parameters:		
+						input: cstring to set value of VLI object to
+	*/
+	void copyVLI(const VLI input);
 private:
-	// Data Storage
+// Data Storage
+
+	/*
+		Description:	True if the VLI object is to be a negative value
+	*/
 	bool isNegative;
+
+	/*
+		Description:	Stores each individual digit in a character array
+						The char array is used because it uses less memory than
+							an integer array
+						Less significant digits are on the right
+						[ 0, 0, . . . , d1, d2, d3 . . . ]
+						There is no null terminator
+	*/
 	char num[VLI_SIZE];
 };
