@@ -44,8 +44,9 @@ int main() {
 		vli1.isLT(vli2) ? cout << "VLI1 < VLI2" : cout << "VLI1 !< VLI2";
 		cout << endl;
 
-		cout << "isCstring: ";
-		
+		cout << "toCstring: ";
+		vli1.toCstring(testArray3);
+		cout << testArray3;
 		cout << endl << endl;
 	}
 	return 0;
