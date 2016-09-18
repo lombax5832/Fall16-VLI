@@ -88,7 +88,7 @@ void VLI::addVLI(const VLI vli1, const VLI vli2) {
 	int tempAdd = 0;
 
 	// adds elements starting at the last one
-	for (int i = VLI_SIZE - 1; i >= min(VLI_SIZE - tempVLI1.getVLILength(), VLI_SIZE - tempVLI2.getVLILength()); i--) {
+	for (int i = VLI_SIZE - 1; i >= min(VLI_SIZE - tempVLI1.getVLILength(), VLI_SIZE - tempVLI2.getVLILength())-1; i--) {
 
 		tempAdd = tempVLI1.num[i] + tempVLI2.num[i] + tempCarry10;
 		num[i] = tempAdd % 10;
