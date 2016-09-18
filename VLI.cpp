@@ -102,6 +102,12 @@ void VLI::subVLI(const VLI vli1, const VLI vli2) {
 	// Need 2 temporary VLI objects
 	VLI tempVLI1, tempVLI2;
 	clearVLI();
+	if (isZero(vli1)) {
+		cout << "VLI1 == 0" << endl;
+	}
+	else {
+		cout << "VLI1 != 0" << endl;
+	}
 
 	// This function will make tempVLI1 the greater of the 2 vli objects
 	if (greaterVLIFirst(vli1, vli2, tempVLI1, tempVLI2)) {
@@ -217,6 +223,15 @@ bool VLI::isGT(const VLI vli2) const {
 
 bool VLI::isLT(const VLI vli2) const{
 	return(!isGT(vli2)&&!isEQ(vli2));
+}
+
+bool VLI::isZero(const VLI vli1) const{
+	for (int i = VLI_SIZE - 1; i >= 0; i--) {
+		if (vli1.num[i] != 0) {
+			return false;
+		}
+	}
+	return true;
 }
 
 // END Predicate
