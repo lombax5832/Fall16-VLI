@@ -4,7 +4,7 @@ using namespace std;
 
 int main() {
 	while (true) {
-		char testArray[VLI_SIZE] = { 0 };
+		char testArray1[VLI_SIZE] = { 0 };
 		char testArray2[VLI_SIZE] = { 0 };
 		char testArray3[VLI_SIZE] = { 0 };
 		int testInt = 0;
@@ -13,13 +13,13 @@ int main() {
 			}*/
 		
 		cout << "Enter a string up to 100 digits: ";
-		cin >> testArray2;
+		cin >> testArray1;
 		cout << "Enter another string ip to 100 digits: ";
-		cin >> testArray3;
+		cin >> testArray2;
 		cout << endl;
 
-		VLI vli1(testArray2);
-		VLI vli2(testArray3);
+		VLI vli1(testArray1);
+		VLI vli2(testArray2);
 		VLI vli3;
 
 		
