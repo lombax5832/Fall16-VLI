@@ -3,34 +3,28 @@ using namespace std;
 #include"VLI.h";
 
 int main() {
-	char testArray[VLI_SIZE] = { 0 };
-	char testArray2[VLI_SIZE] = { 0 };
-	char testArray3[VLI_SIZE] = { 0 };
-	int testInt = 0;
-/*	for (int i = 0; i < VLI_SIZE; i++) {
-		testArray[i] = 0;
-	}*/
-	cout << "Enter a string: ";
-	cin >> testArray2;
-	cout << "Enter another string: ";
-	cin >> testArray3;
-	VLI vli1(testArray2);
-	VLI vli2(testArray3);
+	while (true) {
+		char testArray[VLI_SIZE] = { 0 };
+		char testArray2[VLI_SIZE] = { 0 };
+		char testArray3[VLI_SIZE] = { 0 };
+		int testInt = 0;
+		/*	for (int i = 0; i < VLI_SIZE; i++) {
+				testArray[i] = 0;
+			}*/
+		cout << "Enter a string: ";
+		cin >> testArray2;
+		cout << "Enter another string: ";
+		cin >> testArray3;
+		VLI vli1(testArray2);
+		VLI vli2(testArray3);
+		VLI vli3;
 
-	//cout << "VLI1";
-	//vli1.isEQ(vli2)?cout<<"==":cout<<"!=";
-	//cout << "VLI2" << endl;
+		vli3.addVLI(vli1, vli2);
 
-	//cout << "VLI1";
-	//vli1.isGT(vli2)?cout<<">":cout<<"!>";
-	//cout << "VLI2" << endl;
+		//vli1.isGT(vli2) ? cout << ">" : cout << "!>";
+		//cout << endl;
 
-	cout << "VLI1";
-	vli1.isLT(vli2) ? cout << "!<" : cout << "<";
-	cout << "VLI2" << endl;
-	
-	VLI vli3;
-	vli3.getAbsValue(vli1);
-	vli3.print();
+		vli3.print();
+	}
 	return 0;
 }

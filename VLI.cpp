@@ -1,12 +1,11 @@
 using namespace std;
 #include<iostream>
 #include<algorithm>
-#include<string>
-
 #include"VLI.h";
 
 // Function Declarations
 int firstNonXIndex(const char[], int, char);
+bool greaterVLIFirst(const VLI, const VLI, VLI&, VLI&);
 
 // START Constructors
 VLI::VLI() {
@@ -72,27 +71,93 @@ void VLI::setSign(int inputSign) {
 
 // START Arithmetic
 void VLI::addVLI(const VLI vli1, const VLI vli2) {
+
+	VLI tempVLI1, tempVLI2;
+
+	greaterVLIFirst(vli1, vli2, tempVLI1, tempVLI2);
+
+	if (tempVLI1.getSign() != tempVLI2.getSign()) {
+		tempVLI2.setSign(tempVLI2.getSign()*-1);
+		subVLI(tempVLI1, tempVLI2);
+		return;
+	}
+
 	// tempCarry10 is the amount to carry to the next vli element
 	int tempCarry10 = 0;
 	// tempAdd is how much we add to the current vli element
 	int tempAdd = 0;
 
 	// adds elements starting at the last one
-	for (int i = VLI_SIZE - 1; i >= min(VLI_SIZE - vli1.getVLILength() - 1, VLI_SIZE - vli2.getVLILength() - 1); i--) {
+	for (int i = VLI_SIZE - 1; i >= min(VLI_SIZE - tempVLI1.getVLILength(), VLI_SIZE - tempVLI2.getVLILength()); i--) {
 
-		tempAdd = vli1.num[i] + vli2.num[i] + tempCarry10;
+		tempAdd = tempVLI1.num[i] + tempVLI2.num[i] + tempCarry10;
 		num[i] = tempAdd % 10;
 		tempCarry10 = tempAdd / 10;
 		tempAdd = 0;
-		if (i == 0 && tempCarry10 != 0) {
-
-		}
 	}
 }
 
 void VLI::subVLI(const VLI vli1, const VLI vli2) {
+	// Need 2 temporary VLI objects
+	VLI tempVLI1, tempVLI2;
 
+	// This function will make tempVLI1 the greater of the 2 vli objects
+	if (greaterVLIFirst(vli1, vli2, tempVLI1, tempVLI2)) {
+		setSign(vli2.getSign()*-1);
+	}
+
+	if (tempVLI1.getSign() != tempVLI2.getSign()) {
+		tempVLI2.setSign(tempVLI2.getSign()*-1);
+		addVLI(tempVLI1, tempVLI2);
+		return;
+	}
+
+	// tempSub is how much we subtract from the current vli element
+	int tempSub = 0;
+
+	int mostSignificantIndex = (VLI_SIZE - tempVLI1.getVLILength());
+
+	// subtracts elements starting at the last one
+	for (int i = (VLI_SIZE - 1); i >= mostSignificantIndex; i--) {
+
+		tempSub = tempVLI1.num[i] - tempVLI2.num[i];
+
+		// if tempSub is negative, we have to borrow a 1 from somewhere
+		if (tempSub < 0) {
+			for (int j = (i - 1); j >= mostSignificantIndex; j--) {
+				if (tempVLI1.num[j] > 0) {
+
+					tempVLI1.num[j]--;
+
+					for (int k = j + 1; k < i; k++) {
+						tempVLI1.num[k] = 9;
+					}
+					
+				}
+			}
+
+			tempVLI1.num[i] += 10;
+			tempSub = tempVLI1.num[i] - tempVLI2.num[i];
+
+		}
+		num[i] = tempSub;
+		tempSub = 0;
+	}
 }
+
+bool greaterVLIFirst(const VLI vli1, const VLI vli2, VLI& tempVLI1, VLI& tempVLI2) {
+	if (vli2.isGT(vli1)) {
+		tempVLI1.copyVLI(vli2);
+		tempVLI2.copyVLI(vli1);
+		return true;
+	}
+	else {
+		tempVLI1.copyVLI(vli1);
+		tempVLI2.copyVLI(vli2);
+	}
+	return false;
+}
+
 // END Arithmetic
 
 // START Predicate
@@ -125,6 +190,9 @@ bool VLI::isGT(const VLI vli2) const {
 		for (int i = VLI_SIZE - vlilength; i < VLI_SIZE; i++) {
 			if ((getSign()*num[i]) > (vli2.getSign()*vli2.num[i])) {
 				return true;
+			}
+			else if ((getSign()*num[i]) < (vli2.getSign()*vli2.num[i])) {
+				return false;
 			}
 		}
 		return false;
