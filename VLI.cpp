@@ -6,6 +6,7 @@ using namespace std;
 // Function Declarations
 int firstNonXIndex(const char[], int, char);
 bool greaterVLIFirst(const VLI, const VLI, VLI&, VLI&);
+bool absGT(const VLI vli1, const VLI vli2);
 
 // START Constructors
 VLI::VLI() {
@@ -102,30 +103,31 @@ void VLI::subVLI(const VLI vli1, const VLI vli2) {
 	// Need 2 temporary VLI objects
 	VLI tempVLI1, tempVLI2;
 	clearVLI();
-	if (isZero(vli1)) {
-		cout << "VLI1 == 0" << endl;
-	}
-	else {
-		cout << "VLI1 != 0" << endl;
-	}
 
-	// This function will make tempVLI1 the greater of the 2 vli objects
-	if (greaterVLIFirst(vli1, vli2, tempVLI1, tempVLI2)) {
-		setSign(-1);
-	}
-
-	if (tempVLI1.getSign() != tempVLI2.getSign()) {
+	// If the signs are different, we can change the sign of the second VLI
+	//	and use the add function instead.
+	if ((tempVLI1.getSign() != tempVLI2.getSign())) {
 		tempVLI2.setSign(tempVLI2.getSign()*-1);
 		addVLI(tempVLI1, tempVLI2);
 		return;
 	}
+
+	// This will make tempVLI1 the greater of the 2 vli objects
+	if (greaterVLIFirst(vli1, vli2, tempVLI1, tempVLI2)) {
+		tempVLI2.setSign(tempVLI2.getSign()*-1);
+	} 
+	// Our sign should be based on which vli has a greater absolute value
+	if (absGT(vli2, vli1)) {
+		setSign(vli2.getSign()*-1);
+	}
 	else {
-		setSign(tempVLI1.getSign());
+		setSign(vli1.getSign());
 	}
 
 	// tempSub is how much we subtract from the current vli element
 	int tempSub = 0;
 
+	// The first nonZero index
 	int mostSignificantIndex = (VLI_SIZE - tempVLI1.getVLILength());
 
 	// subtracts elements starting at the last one
@@ -136,10 +138,13 @@ void VLI::subVLI(const VLI vli1, const VLI vli2) {
 		// if tempSub is negative, we have to borrow a 1 from somewhere
 		if (tempSub < 0) {
 			for (int j = (i - 1); j >= mostSignificantIndex; j--) {
+				// do this if we find a 1 to borrow
 				if (tempVLI1.num[j] > 0) {
 
+					// remove 1 to move where we want it
 					tempVLI1.num[j]--;
 
+					// everything else can be changed to 9 that was a 0
 					for (int k = j + 1; k < i; k++) {
 						tempVLI1.num[k] = 9;
 					}
@@ -147,6 +152,7 @@ void VLI::subVLI(const VLI vli1, const VLI vli2) {
 				}
 			}
 
+			// the element that was not high enough is now > 9
 			tempVLI1.num[i] += 10;
 			tempSub = tempVLI1.num[i] - tempVLI2.num[i];
 
@@ -221,17 +227,17 @@ bool VLI::isGT(const VLI vli2) const {
 	}
 }
 
-bool VLI::isLT(const VLI vli2) const{
-	return(!isGT(vli2)&&!isEQ(vli2));
+bool absGT(const VLI vli1, const VLI vli2) {
+	VLI tempVLI1, tempVLI2;
+	tempVLI1.copyVLI(vli1);
+	tempVLI1.setSign(1);
+	tempVLI2.copyVLI(vli2);
+	tempVLI2.setSign(1);
+	return tempVLI1.isGT(tempVLI2);
 }
 
-bool VLI::isZero(const VLI vli1) const{
-	for (int i = VLI_SIZE - 1; i >= 0; i--) {
-		if (vli1.num[i] != 0) {
-			return false;
-		}
-	}
-	return true;
+bool VLI::isLT(const VLI vli2) const{
+	return(!isGT(vli2)&&!isEQ(vli2));
 }
 
 // END Predicate
