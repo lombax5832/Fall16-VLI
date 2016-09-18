@@ -197,7 +197,7 @@ bool VLI::isEQ(const VLI vli2) const{
 	// Only run loop if both VLIs are the same length and sign
 	if ((getVLILength() == vli2.getVLILength())&&(getSign()==vli2.getSign())) {
 		int vliLength = getVLILength();// Amount of digits in the VLI
-		for (int i = VLI_SIZE-vliLength; i < vliLength; i++) {
+		for (int i = VLI_SIZE-vliLength-1; i < VLI_SIZE; i++) {
 			if (num[i] == vli2.num[i]) { // We only care about when these are different
 				continue;
 			}
