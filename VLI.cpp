@@ -81,7 +81,7 @@ void VLI::addVLI(const VLI vli1, const VLI vli2) {
 		subVLI(tempVLI1, tempVLI2);
 		return;
 	}
-
+	setSign(tempVLI1.getSign());
 	// tempCarry10 is the amount to carry to the next vli element
 	int tempCarry10 = 0;
 	// tempAdd is how much we add to the current vli element
