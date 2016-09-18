@@ -11,20 +11,42 @@ int main() {
 		/*	for (int i = 0; i < VLI_SIZE; i++) {
 				testArray[i] = 0;
 			}*/
-		cout << "Enter a string: ";
+		
+		cout << "Enter a string up to 100 digits: ";
 		cin >> testArray2;
-		cout << "Enter another string: ";
+		cout << "Enter another string ip to 100 digits: ";
 		cin >> testArray3;
+		cout << endl;
+
 		VLI vli1(testArray2);
 		VLI vli2(testArray3);
 		VLI vli3;
 
-		vli3.subVLI(vli1, vli2);
-
-		//vli1.isGT(vli2) ? cout << ">" : cout << "!>";
-		//cout << endl;
-
+		
+		
+		cout << "AddVLInt: ";
+		vli3.addVLI(vli1, vli2);
 		vli3.print();
+		
+		cout << "subVLInt: ";
+		vli3.subVLI(vli1, vli2);
+		vli3.print();
+
+		cout << "isEQ: ";
+		vli1.isEQ(vli2) ? cout << "VLI1 = VLI2" : cout << "VLI1 != VLI2";
+		cout << endl;
+
+		cout << "isGT: ";
+		vli1.isGT(vli2) ? cout << "VLI1 > VLI2" : cout << "VLI1 !> VLI2";
+		cout << endl;
+
+		cout << "isLT: " ;
+		vli1.isLT(vli2) ? cout << "VLI1 < VLI2" : cout << "VLI1 !< VLI2";
+		cout << endl;
+
+		cout << "isCstring: ";
+		
+		cout << endl << endl;
 	}
 	return 0;
 }
