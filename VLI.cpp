@@ -88,7 +88,8 @@ void VLI::addVLI(const VLI vli1, const VLI vli2) {
 	int tempAdd = 0;
 
 	// adds elements starting at the last one
-	for (int i = VLI_SIZE - 1; i >= min(VLI_SIZE - tempVLI1.getVLILength(), VLI_SIZE - tempVLI2.getVLILength())-1; i--) {
+	for (int i = VLI_SIZE - 1; i >= min(VLI_SIZE - tempVLI1.getVLILength(),
+		VLI_SIZE - tempVLI2.getVLILength())-1; i--) {
 
 		tempAdd = tempVLI1.num[i] + tempVLI2.num[i] + tempCarry10;
 		num[i] = tempAdd % 10;
@@ -109,8 +110,9 @@ void VLI::subVLI(const VLI vli1, const VLI vli2) {
 	}
 
 	// This function will make tempVLI1 the greater of the 2 vli objects
-	greaterVLIFirst(vli1, vli2, tempVLI1, tempVLI2);
-	setSign(tempVLI1.getSign());
+	if (greaterVLIFirst(vli1, vli2, tempVLI1, tempVLI2)) {
+		setSign(-1);
+	}
 
 	if (tempVLI1.getSign() != tempVLI2.getSign()) {
 		tempVLI2.setSign(tempVLI2.getSign()*-1);
