@@ -174,15 +174,21 @@ public:
 	void setVLIFromString(const char input[]);
 
 	/*
-		Description:	Sets value of VLI from passed input cstring
+		Description:	Sets value of calling VLI to passed VLI
 		Pre:			Called as member of VLI object
-						Passed cstring has an optional leading negative
-							and must have a terminating null character
-		Post:			VLI object will be set equal to value of input string
+		Post:			VLI object will be set equal to value of input
+	*/
+	void copyVLI(const VLI input);
+
+	/*
+		Description:	If the calling vli object is -0, it will be corrected
+							to 0
+		Pre:			Called as member of VLI object
+		Post:			calling vli object will be set to 0 if it is -0
 		Parameters:		
 						input: cstring to set value of VLI object to
 	*/
-	void copyVLI(const VLI input);
+	void correctZeroVLI();
 private:
 // Data Storage
 

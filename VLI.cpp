@@ -6,7 +6,7 @@ using namespace std;
 // Function Declarations
 int firstNonXIndex(const char[], int, char);
 bool greaterVLIFirst(const VLI, const VLI, VLI&, VLI&);
-bool absGT(const VLI vli1, const VLI vli2);
+bool absGT(const VLI, const VLI);
 
 // START Constructors
 VLI::VLI() {
@@ -89,7 +89,7 @@ void VLI::addVLI(const VLI vli1, const VLI vli2) {
 	int tempAdd = 0;
 
 	// adds elements starting at the last one
-	for (int i = VLI_SIZE - 1; i >= min(VLI_SIZE - tempVLI1.getVLILength(),
+	for (int i = VLI_SIZE - 1; i >= min(VLI_SIZE - tempVLI1.getVLILength()-1,
 		VLI_SIZE - tempVLI2.getVLILength())-1; i--) {
 
 		tempAdd = tempVLI1.num[i] + tempVLI2.num[i] + tempCarry10;
@@ -97,6 +97,7 @@ void VLI::addVLI(const VLI vli1, const VLI vli2) {
 		tempCarry10 = tempAdd / 10;
 		tempAdd = 0;
 	}
+	correctZeroVLI();
 }
 
 void VLI::subVLI(const VLI vli1, const VLI vli2) {
@@ -104,18 +105,20 @@ void VLI::subVLI(const VLI vli1, const VLI vli2) {
 	VLI tempVLI1, tempVLI2;
 	clearVLI();
 
+	// This will make tempVLI1 the greater of the 2 vli objects
+	if (greaterVLIFirst(vli1, vli2, tempVLI1, tempVLI2)) {
+		tempVLI2.setSign(tempVLI2.getSign()*-1);
+	} 
+
 	// If the signs are different, we can change the sign of the second VLI
 	//	and use the add function instead.
-	if ((tempVLI1.getSign() != tempVLI2.getSign())) {
+	if ((vli1.getSign() != vli2.getSign())) {
 		tempVLI2.setSign(tempVLI2.getSign()*-1);
 		addVLI(tempVLI1, tempVLI2);
 		return;
 	}
 
-	// This will make tempVLI1 the greater of the 2 vli objects
-	if (greaterVLIFirst(vli1, vli2, tempVLI1, tempVLI2)) {
-		tempVLI2.setSign(tempVLI2.getSign()*-1);
-	} 
+	
 	// Our sign should be based on which vli has a greater absolute value
 	if (absGT(vli2, vli1)) {
 		setSign(vli2.getSign()*-1);
@@ -155,13 +158,14 @@ void VLI::subVLI(const VLI vli1, const VLI vli2) {
 			// the element that was not high enough is now > 9
 			tempVLI1.num[i] += 10;
 			tempSub = tempVLI1.num[i] - tempVLI2.num[i];
-
 		}
 		num[i] = tempSub;
 		tempSub = 0;
 	}
+	correctZeroVLI();
 }
 
+// Makes tempVLI1 equal to vli1 or vli2, based on which one's absolute value is higher
 bool greaterVLIFirst(const VLI vli1, const VLI vli2, VLI& tempVLI1, VLI& tempVLI2) {
 	VLI absVLI1, absVLI2;
 	absVLI1.getAbsValue(vli1);
@@ -227,6 +231,8 @@ bool VLI::isGT(const VLI vli2) const {
 	}
 }
 
+// Same as isGT, except uses absolute values instead
+// Checks to see if |vli1|>|vli2|
 bool absGT(const VLI vli1, const VLI vli2) {
 	VLI tempVLI1, tempVLI2;
 	tempVLI1.copyVLI(vli1);
@@ -315,6 +321,8 @@ void VLI::copyVLI(const VLI input) {
 	}
 }
 
+// Finds the first index in a character array where X does not occur
+// Starts from start
 int firstNonXIndex(const char input[], int start, char X) {
 	int size = strlen(input);//Length of string
 	for (int i = start; i < size; i++) {
@@ -323,5 +331,14 @@ int firstNonXIndex(const char input[], int start, char X) {
 		}
 	}
 	return size - 1;
+}
+
+void VLI::correctZeroVLI() {
+	for (int i = VLI_SIZE-1; i >= (VLI_SIZE-1)-getVLILength(); i--) {
+		if (num[i] != 0) {
+			return;
+		}
+	}
+	setSign(1);
 }
 // END Misc
