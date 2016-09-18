@@ -78,7 +78,7 @@ void VLI::addVLI(const VLI vli1, const VLI vli2) {
 
 	if (tempVLI1.getSign() != tempVLI2.getSign()) {
 		tempVLI2.setSign(tempVLI2.getSign()*-1);
-		subVLI(vli1, vli2);
+		subVLI(tempVLI1, tempVLI2);
 		return;
 	}
 	setSign(tempVLI1.getSign());
@@ -112,6 +112,9 @@ void VLI::subVLI(const VLI vli1, const VLI vli2) {
 		tempVLI2.setSign(tempVLI2.getSign()*-1);
 		addVLI(tempVLI1, tempVLI2);
 		return;
+	}
+	else {
+		setSign(tempVLI1.getSign());
 	}
 
 	// tempSub is how much we subtract from the current vli element
