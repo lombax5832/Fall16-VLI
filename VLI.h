@@ -136,6 +136,18 @@ public:
 	*/
 	bool isLT(const VLI vli) const;
 
+	/*
+		Description:	Returns if the value of the calling vli object 
+							is equal to 0
+		Pre:			Called as member of VLI object
+		Post:			Calling VLI object is checked to see if all values are 0
+		Parameters:		
+						vli: VLI object to check
+		Returns:		True if calling vli object is equal to 0
+						False otherwise
+	*/
+	bool isZero(const VLI vli) const;
+
 // Misc
 
 	/*

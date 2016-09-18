@@ -73,12 +73,12 @@ void VLI::setSign(int inputSign) {
 void VLI::addVLI(const VLI vli1, const VLI vli2) {
 
 	VLI tempVLI1, tempVLI2;
-
+	clearVLI();
 	greaterVLIFirst(vli1, vli2, tempVLI1, tempVLI2);
 
 	if (tempVLI1.getSign() != tempVLI2.getSign()) {
 		tempVLI2.setSign(tempVLI2.getSign()*-1);
-		subVLI(tempVLI1, tempVLI2);
+		subVLI(vli1, vli2);
 		return;
 	}
 	setSign(tempVLI1.getSign());
@@ -100,11 +100,17 @@ void VLI::addVLI(const VLI vli1, const VLI vli2) {
 void VLI::subVLI(const VLI vli1, const VLI vli2) {
 	// Need 2 temporary VLI objects
 	VLI tempVLI1, tempVLI2;
+	clearVLI();
+	if (isZero(vli1)) {
+		cout << "VLI1 == 0" << endl;
+	}
+	else {
+		cout << "VLI1 != 0" << endl;
+	}
 
 	// This function will make tempVLI1 the greater of the 2 vli objects
-	if (greaterVLIFirst(vli1, vli2, tempVLI1, tempVLI2)) {
-		setSign(vli2.getSign()*-1);
-	}
+	greaterVLIFirst(vli1, vli2, tempVLI1, tempVLI2);
+	setSign(tempVLI1.getSign());
 
 	if (tempVLI1.getSign() != tempVLI2.getSign()) {
 		tempVLI2.setSign(tempVLI2.getSign()*-1);
@@ -132,7 +138,7 @@ void VLI::subVLI(const VLI vli1, const VLI vli2) {
 					for (int k = j + 1; k < i; k++) {
 						tempVLI1.num[k] = 9;
 					}
-					
+					break;
 				}
 			}
 
@@ -146,14 +152,25 @@ void VLI::subVLI(const VLI vli1, const VLI vli2) {
 }
 
 bool greaterVLIFirst(const VLI vli1, const VLI vli2, VLI& tempVLI1, VLI& tempVLI2) {
-	if (vli2.isGT(vli1)) {
-		tempVLI1.copyVLI(vli2);
-		tempVLI2.copyVLI(vli1);
+	VLI absVLI1, absVLI2;
+	absVLI1.getAbsValue(vli1);
+	absVLI2.getAbsValue(vli2);
+	if (absVLI2.isGT(absVLI1)) {
+
+		tempVLI1.copyVLI(absVLI2);
+		tempVLI1.setSign(vli2.getSign());
+
+		tempVLI2.copyVLI(absVLI1);
+		tempVLI2.setSign(vli1.getSign());
 		return true;
 	}
 	else {
-		tempVLI1.copyVLI(vli1);
-		tempVLI2.copyVLI(vli2);
+
+		tempVLI1.copyVLI(absVLI1);
+		tempVLI1.setSign(vli1.getSign());
+
+		tempVLI2.copyVLI(absVLI2);
+		tempVLI2.setSign(vli2.getSign());
 	}
 	return false;
 }
@@ -202,6 +219,16 @@ bool VLI::isGT(const VLI vli2) const {
 bool VLI::isLT(const VLI vli2) const{
 	return(!isGT(vli2)&&!isEQ(vli2));
 }
+
+bool VLI::isZero(const VLI vli1) const{
+	for (int i = VLI_SIZE - 1; i >= 0; i--) {
+		if (vli1.num[i] != 0) {
+			return false;
+		}
+	}
+	return true;
+}
+
 // END Predicate
 
 // START Misc

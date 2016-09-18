@@ -19,7 +19,7 @@ int main() {
 		VLI vli2(testArray3);
 		VLI vli3;
 
-		vli3.addVLI(vli1, vli2);
+		vli3.subVLI(vli1, vli2);
 
 		//vli1.isGT(vli2) ? cout << ">" : cout << "!>";
 		//cout << endl;
